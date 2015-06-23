@@ -1,0 +1,221 @@
+body
+{
+    font-family: "微软雅黑" , Arial, Helvetica, sans-serif;
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+    background-color: #e5e5e5;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    width: 640px;
+    padding-bottom: 30px;
+}
+a img
+{
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+.clear
+{
+    clear: both;
+    float: none;
+}
+.blankline
+{
+    clear: both;
+    padding-top: 20px;
+    margin: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    overflow: hidden;
+    height: 1px;
+}
+.con
+{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    padding-top: 0px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+}
+.index
+{
+    background-image: url(../images/bg_index.jpg);
+    background-repeat: no-repeat;
+    height: 1008px;
+}
+.top
+{
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.2em;
+}
+.indextop
+{
+    color: #666;
+    padding-top: 50px;
+}
+.direction
+{
+    background-color: #FFF;
+    background-image: url(../images/bg-white.jpg);
+    background-repeat: no-repeat;
+    height: 1008px;
+}
+.drctop
+{
+    color: #FFF;
+    background-image: url(../images/bgtop-1.jpg);
+    background-repeat: repeat;
+    height: 130px;
+    padding-top: 40px;
+}
+.interaction
+{
+    background-color: #FFF;
+    background-image: url(../images/bg-pp.jpg);
+    background-size: cover;
+    min-height: 1008px;
+}
+.itctop
+{
+    color: #FFF;
+    background-image: url(../images/bgtop-2.jpg);
+    background-repeat: no-repeat;
+    height: 130px;
+    padding-top: 40px;
+}
+.download
+{
+    background-image: url(../images/bg_green.jpg);
+    background-size: cover;
+    min-height: 1008px;
+}
+.dltop
+{
+    color: #FFF;
+    background-image: url(../images/bgtop-4.jpg);
+    background-repeat: no-repeat;
+    height: 130px;
+    padding-top: 40px;
+}
+.personal
+{
+    background-image: url(../images/bg-yellow.jpg);
+    background-repeat: no-repeat;
+    height: 1008px;
+}
+.pstop
+{
+    color: #FFF;
+    background-image: url(../images/bgtop-3.jpg);
+    background-repeat: no-repeat;
+    height: 130px;
+    padding-top: 40px;
+}
+.main
+{
+    background-color: #FFF;
+    padding-top: 30px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+}
+.psmain
+{
+    font-size: 1.5em;
+    line-height: 1.8em;
+    padding-right: 80px;
+    padding-left: 80px;
+}
+.bottom
+{
+    clear: both;
+    height: 11px;
+    width: 640px;
+}
+.psbo
+{
+    background-image: url(../images/bo-yellow.jpg);
+    background-repeat: no-repeat;
+}
+.dlbo
+{
+    background-image: url(../images/bo_green.jpg);
+    background-repeat: no-repeat;
+}
+
+.itcbo
+{
+    background-image: url(../images/bo-pp.jpg);
+    background-repeat: no-repeat;
+}
+
+.drcbo
+{
+    background-image: url(../images/bo-blue.jpg);
+    background-repeat: no-repeat;
+}
+.dlmain
+{
+    color: #3ABF90;
+}
+.dlblock
+{
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    padding-left: 50px;
+}
+.dl_filename
+{
+    float: left;
+    height: 133px;
+    width: 400px;
+    line-height: 133px;
+    color: #FFF;
+    font-size: 2em;
+}
+.dl_buttom
+{
+    float: right;
+}
+.itc_intro
+{
+    line-height: 1.5em;
+    color: #8D7CCC;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+.itc_block
+{
+    background-color: #E1E1E1;
+    padding: 20px;
+}
+.itcb_title
+{
+    font-size: 1.2em;
+    color: #8D7CCC;
+    font-weight: bold;
+    line-height: 1.8em;
+}
+.itcb_ans
+{
+    font-size: 1.2em;
+    font-weight: normal;
+    color: #8D7CCC;
+    line-height: 1.8em;
+}
+.drc_intro
+{
+    line-height: 1.5em;
+    color: #25B4C2;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}

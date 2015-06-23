@@ -1,0 +1,126 @@
+--用户信息
+Create Table M_Users
+(
+  PubID int not null identity(1,1),
+  PubNo VarChar(100) not null,
+  UserName VarChar(100) not null,
+  Pwd VarChar(100),
+  UserType Int,		--用户类型：0 普通用户， 1：管理用户
+  DeleteFlag int,	--删除标记
+  Constraint PK_M_Users Primary Key (PubID)
+)
+Go
+
+--会议信息
+Create Table M_Info
+(
+  MID uniqueidentifier not null,
+  PubID int not null,
+  mName VarChar(200),		--会议名称
+  mSignBeginTime DateTime,	--报名开始时间
+  mSignEndTime DateTime,	--报名结束时间
+  mBeginTime DateTime,		--会议开始时间
+  mEndTime DateTime,		--会议结束时间
+  mAddress VarChar(200),	--会议地址
+  mContact VarChar(200),	--会议联系人
+  mHost VarChar(200),		--主办
+  mUnderTake VarChar(200),	--承办
+  mJointly VarChar(200),	--协办
+  mAgendaFile VarChar(100),	--会议议程（图片）
+  mScreenFile VarChar(100),	--会议互动的缺省图片
+  SeatX int,	--会场座位行数
+  SeatY int,	--会场座位列数  
+  Constraint PK_M_Info Primary Key (MID)
+)
+Go
+
+--人员状态
+Create Table M_State
+(
+  pState int not null identity(1,1),
+  MID uniqueidentifier,
+  OrderNo Decimal(5,2),	--序号
+  sName VarChar(20),	--状态名称
+  Constraint PK_M_State Primary Key (pState)
+)
+Go
+
+--参会人员
+Create Table M_Person
+(
+  ID int not null identity(1,1),	
+  MID uniqueidentifier not null,
+  pName VarChar(50),		--参会人员姓名
+  pUnitName VarChar(100),	--单位
+  pTitle VarChar(50),		--职务
+  pGender VarChar(10),		--性别
+  pMobile VarChar(20),		--手机
+  pState int,	--状态		--状态
+  pOpenID VarChar(100),		--微信OpenID
+  pGroupID VarChar(100),	--微信OpenID，用来表示同一组报名人员
+  SignTime DateTime,		--报名时间
+  RegTime DateTime,			--签到时间
+  SeatX int,				--座位
+  SeatY int,				--座位
+  BID int,					--合并的位置
+  Constraint PK_M_Person Primary Key (ID)
+)
+Go
+
+--会议资料
+Create Table M_Data
+(
+  ID int not null identity(1,1),
+  MID uniqueidentifier,
+  dName VarChar(100),		--资料名称
+  dFileName VarChar(100),	--资料路径
+  Constraint PK_M_Data Primary Key (ID)
+)
+Go
+
+--位置初始化（在这个表中的数据，表示走廊或者过道）
+Create Table M_SeatInit
+(
+  ID Int Not Null Identity(1,1),
+  MID uniqueidentifier,
+  SeatX int,	
+  SeatY int,
+  Constraint PK_M_SeatInit Primary Key (ID)
+)
+Go
+
+--位置合并信息
+Create Table M_SeatBlock
+(
+  BID Int Not Null Identity(1,1),
+  MID uniqueidentifier,
+  bName VarChar(50),
+  SeatBlock VarChar(500),
+  Constraint PK_M_SeatBlock Primary key (bID)
+)
+Go
+
+Create Proc usp_M_State_Save
+(
+  @pState int,
+  @mid uniqueidentifier,
+  @OrderNo Decimal(5,2),
+  @sName VarChar(20)
+)
+as
+begin
+  if @pState is null
+  Begin
+    insert into M_State (pState,mid,orderno,sName)
+		Values (@pState,@mid,@OrderNo,@sName)
+  End
+  Else
+  Begin
+    UpDate M_State
+    Set
+		OrderNo = @OrderNO,
+		sName = @sName
+    Where pState = @pState
+  End
+end
+Go
