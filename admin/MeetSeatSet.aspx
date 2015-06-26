@@ -15,6 +15,7 @@
     <link href="../css/DataList.css" type="text/css" rel="Stylesheet" />
     <link href="../css/PageStyle.css" type="text/css" rel="Stylesheet" />
     <script language="javascript" type="text/javascript" src="../js/adminframe/frameJS.js"></script>
+    <script src="../js/drawselect2.js"></script>
     <style>
         .ui-widget-header
         {
@@ -27,6 +28,16 @@
         #tabs ul li.ui-tabs-active a
         {
             background: #fff;
+        }
+        #divseat div.selected {
+
+            background-color: red;
+        }
+
+        div.draw {
+            border: solid 1px blue;
+
+
         }
     </style>
 </head>
@@ -63,11 +74,12 @@
                 <div class="cilr">
                     <input id="btnAreaRestore" type="button" value="取消座位设置" />
                 </div>
+                selected:<span id="result"></span>
             </div>
             <div class="mtintro">
                 <div class="mt_other">
                     主席台</div>
-                <div id="divseat" class="mtseats">
+                <div id="divseat" class="mtseats" runat="server">
                 </div>
             </div>
             <div id="tzbox" style="position: absolute; width: 100%; top: 100px; left: 0px; display: none">
@@ -127,7 +139,6 @@
                 $("#tbSeatX").val(e.split('|')[0]);
                 $("#tbSeatY").val(e.split('|')[1]);
                 tab = e.split('|')[2];
-                $("#divseat").html(e.split('|')[3]);
                 if (a) {
                     $('#tabs').tabs('option', 'active', tab);
                 }
@@ -219,6 +230,7 @@
             if ($.inArray(seatstr, selectemp) != -1) {
                 selectemp.splice($.inArray(seatstr, selectemp), 1);
             }
+            $("#divseat" + seatstr).removeAttr("fixed");
         }
     }
 
@@ -341,4 +353,25 @@
         }
             )
     })
+
+    $("#divseat").DrawSelect(
+            { 'mouse_up': function (result) {
+                //                $('#result').val("");
+                for (var i = 0; i < result.length; i++) {
+                    //                    $("#result").append($(result[i]).attr("id") + ";")
+                    var seatstr = $(result[i]).attr("id").replace("divseat", "");
+                    if ($.inArray(seatstr, selectseat) == -1) {
+                        if ($("#divseat" + seatstr).attr("name") != "") {
+                            if ($.inArray($("#divseat" + seatstr).attr("name"), selectbid) == -1) {
+                                selectbid.push($("#divseat" + seatstr).attr("name"));
+                                //$("div[name='" + $("#divseat" + seatstr).attr("name") + "']").attr("class", "mt_sli area");
+                            }
+                        }
+                        selectseat.push(seatstr);
+                    }
+                }
+
+            }
+            }
+    );
 </script>

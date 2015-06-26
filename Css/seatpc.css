@@ -300,6 +300,12 @@
 	background-color: #FF0000;
 	color: Black;
 }
+.draw
+{
+    filter:alpha(Opacity=80);-moz-opacity:0.5;opacity: 0.5;
+    border:solid 1px #C9C9C9;
+    background-color:#C9C9C9;
+}
 .area
 {
     background-color: #EEEE00;
