@@ -71,6 +71,14 @@
         </div>
         <div class="ciline">
             <div class="cill">
+                备注
+            </div>
+            <div class="cilr">
+                <textarea id="tpRemark" runat="server" cols="20" rows="2" style="width: 420px; height: 200px"></textarea>
+            </div>
+        </div>
+        <div class="ciline">
+            <div class="cill">
                 <a href="#" id="aback" runat="server">返回</a>
             </div>
             <div class="cilr">

@@ -41,6 +41,20 @@ public partial class Welcome : System.Web.UI.Page
         }
     }
 
+    protected string GetMeetUrl(object mid)
+    {
+        return "http://item.tourzj.gov.cn/weixin/jnh/j.aspx?meetting="+mid+"&r=1"; 
+    }
 
-
+    protected string GetSeatUrl(object SeatX)
+    {
+        if (SeatX.ToString() == "0")
+        {
+            return "SeatInitialize.aspx";
+        }
+        else
+        {
+            return "SeatPersonSet.aspx";
+        }
+    }
 }

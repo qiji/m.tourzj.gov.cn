@@ -47,4 +47,29 @@ public partial class admin_PersonList : System.Web.UI.Page
         GetData();
         GridView1.PageIndex = e.NewSelectedIndex;
     }
+    protected void btnExcel_Click(object sender, EventArgs e)
+    {
+        Export(GridView1, "application/vnd.ms-excel", "人员导出.xls");
+    }
+
+    public void Export(System.Web.UI.Control source, string fileType, string fileName)
+    {
+        HttpResponse response = HttpContext.Current.Response;
+        response.Clear();
+        response.Buffer = true;
+        response.Charset = "UTF-8"; //default-value
+        response.ContentEncoding = System.Text.Encoding.UTF7;
+        response.AddHeader("content-disposition", "attachment;filename=" + HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8).ToString());
+        response.ContentType = fileType;
+        source.Page.EnableViewState = false;
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        HtmlTextWriter hw = new HtmlTextWriter(sw);
+        source.RenderControl(hw);
+        response.Write(sw.ToString());
+        response.End();
+    }
+
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+    }
 }

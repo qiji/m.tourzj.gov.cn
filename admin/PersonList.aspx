@@ -25,6 +25,10 @@
             <div class="cilr">
                 <asp:Button runat="server" ID="btnOK" Text="查询" OnClick="btnOK_Click" />
             </div>
+            <div class="cilr">
+                <asp:Button runat="server" ID="btnExcel" Text="导出EXCEL" 
+                    onclick="btnExcel_Click" />
+            </div>
         </div>
         <div class="ciline">
             <div class="cill">
@@ -48,8 +52,9 @@
                         <asp:BoundField DataField="pTitle" HeaderText="职务" />
                         <asp:BoundField DataField="pGender" HeaderText="性别" />
                         <asp:BoundField DataField="sName" HeaderText="状态" />
-                        <asp:BoundField DataField="SignTime" HeaderText="报名时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
-                        <asp:BoundField DataField="RegTime" HeaderText="签到时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
+                        <asp:BoundField DataField="SignTime" HeaderText="报名时间" DataFormatString="{0:yyyy-MM-dd HH:MM:ss}" />
+                        <asp:BoundField DataField="RegTime" HeaderText="签到时间" DataFormatString="{0:yyyy-MM-dd HH:MM:ss}" />
+                        <asp:BoundField DataField="Remark" HeaderText="备注"/>
                     </Columns>
                     <PagerStyle BackColor="White" CssClass="cigvp" Font-Size="15px" ForeColor="Black"
                         HorizontalAlign="Center" />

@@ -105,10 +105,38 @@
         </div>
         <div class="ciline">
             <div class="cill">
+                是否需要报名
+            </div>
+            <div class="cilr">
+                <asp:RadioButtonList ID="RBLIsRegistration" runat="server" 
+                    RepeatDirection="Horizontal">
+                    <asp:ListItem Selected="True" Value="1">是</asp:ListItem>
+                    <asp:ListItem Value="0">否</asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+        </div>
+        <div class="ciline">
+            <div class="cill">
+                提示信息
+            </div>
+            <div class="cilr">
+                <asp:TextBox ID="txtHintInfo" runat="server" TextMode="MultiLine"></asp:TextBox>
+            </div>
+        </div>
+        <div class="ciline">
+            <div class="cill">
                 议程
             </div>
             <div class="cilr">
                 <uc1:Upload ID="Upload1" runat="server" WH="100*200" />
+            </div>
+        </div>
+        <div class="ciline">
+            <div class="cill">
+                会场座位图
+            </div>
+            <div class="cilr">
+                <uc1:Upload ID="mSeatFile" runat="server" WH="350*250" />
             </div>
         </div>
         <div class="ciline">

@@ -21,8 +21,8 @@
                         <Columns>
                             <asp:HyperLinkField DataNavigateUrlFields="pubid,mid" DataNavigateUrlFormatString="MInfoEdit.aspx?pubid={0}&mid={1}"
                                 DataTextField="mName" HeaderText="会议名称" />
-                            <asp:BoundField DataField="mBeginTime" HeaderText="开始时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
-                            <asp:BoundField DataField="mEndTime" HeaderText="结束时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
+                            <asp:BoundField DataField="mBeginTime" HeaderText="开始时间"/>
+                            <asp:BoundField DataField="mEndTime" HeaderText="结束时间"/>
                         </Columns>
                         <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Center" CssClass="cigvp"
                             Font-Size="15px" />

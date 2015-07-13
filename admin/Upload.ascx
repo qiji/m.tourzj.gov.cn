@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Upload.ascx.cs" Inherits="admin_Upload" %>
-<div style="width: 100%;">
+<div>
     <div id="upload" runat="server" style="line-height: 35px; height: 35px; float: left;">
         <div id="upfile" runat="server">
             <div style="float: left; line-height: 35px;">

@@ -18,19 +18,27 @@
                         <Columns>
                             <asp:HyperLinkField DataNavigateUrlFields="mid" DataNavigateUrlFormatString="MInfo.aspx?mid={0}"
                                 DataTextField="mName" HeaderText="会议名称" />
-                            <asp:TemplateField HeaderText="会议地址">
+                            <%--<asp:TemplateField HeaderText="会议地址">
                                 <ItemTemplate>
                                     <%# GetShortAddress(Eval("mAddress")) %>
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="mContact" HeaderText="联系人" />
-                            <asp:BoundField DataField="mBeginTime" HeaderText="开始时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
-                            <asp:BoundField DataField="mEndTime" HeaderText="结束时间" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
-                            <asp:TemplateField HeaderText="操作">
+                            </asp:TemplateField>--%>
+                            <%--<asp:BoundField DataField="mContact" HeaderText="联系人" />--%>
+                            <asp:BoundField DataField="mBeginTime" HeaderText="开始时间"/>
+                            <asp:BoundField DataField="mEndTime" HeaderText="结束时间"/>
+                            <asp:TemplateField HeaderText="会议链接">
                                 <ItemTemplate>
-                                    <a href="PersonList.aspx?mid=<%# Eval("mid") %>">人员</a> | <a href='MeetSeatSet.aspx?mid=<%# Eval("mid") %>' target="_blank">座位设置</a> |<a
+                                    <%# GetMeetUrl(Eval("mid"))%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="操作" HeaderStyle-Width="160px">
+                                <ItemTemplate>
+                                    <a href="PersonList.aspx?mid=<%# Eval("mid") %>">人员</a>| <a class="seat" href='<%# GetSeatUrl(Eval("SeatX"))%>?mid=<%# Eval("mid") %>' target="_blank">座位设置</a> | <a
                                         href='MStateList.aspx?mid=<%# Eval("mid") %>'>状态设置</a> |<a href='MScreen.aspx?mid=<%# Eval("mid") %>'>会议互动</a>|<a
-                                            href='MfileList.aspx?mid=<%# Eval("mid") %>'>会议资料</a></ItemTemplate>
+                                            href='MfileList.aspx?mid=<%# Eval("mid") %>'>会议资料</a>
+                                            |<a
+                                            href='MLive.aspx?mid=<%# Eval("mid") %>'>会议直播</a>
+                                            </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                         <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Center" CssClass="cigvp"
@@ -44,4 +52,7 @@
             </div>
         </div>
     </div>
+<script>
+    $(".seat").attr("href", $(".seat").attr("href") + "&width=" + $(document).width() + "&height=" + $(document).height()); 
+</script>
 </asp:Content>

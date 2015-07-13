@@ -27,8 +27,8 @@ public partial class manage_MInfoEdit : System.Web.UI.Page
             {
                 DataTable dt = MySQL.ExecProc("usp_M_Info_GetByMid", new string[] { mid }, out sqlexec, out sqlresult).Tables[0];
                 tbmName.Text = dt.Rows[0]["mName"].ToString();
-                tbBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mBeginTime"]).ToString("yyyy-MM-dd hh:mm:ss");
-                tbEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mEndTime"]).ToString("yyyy-MM-dd hh:mm:ss");
+                tbBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mBeginTime"]).ToString();
+                tbEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mEndTime"]).ToString();
 
             }
         }

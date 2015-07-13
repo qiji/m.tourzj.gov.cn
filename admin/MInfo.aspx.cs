@@ -24,26 +24,27 @@ public partial class admin_MInfo : System.Web.UI.Page
             tbmJointly.Text = dt.Rows[0]["mJointly"].ToString();
             if (!string.IsNullOrEmpty(dt.Rows[0]["mSignBeginTime"].ToString()))
             {
-                tbmSignBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mSignBeginTime"]).ToString("yyyy-MM-dd hh:mm:ss");
+                tbmSignBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mSignBeginTime"]).ToString();
             }
             if (!string.IsNullOrEmpty(dt.Rows[0]["mSignEndTime"].ToString()))
             {
-                tbmSignEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mSignEndTime"]).ToString("yyyy-MM-dd hh:mm:ss");
+                tbmSignEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mSignEndTime"]).ToString();
             }
             if (!string.IsNullOrEmpty(dt.Rows[0]["mBeginTime"].ToString()))
             {
-                tbmBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mBeginTime"]).ToString("yyyy-MM-dd hh:mm:ss");
+                tbmBeginTime.Value = Convert.ToDateTime(dt.Rows[0]["mBeginTime"]).ToString();
             }
             if (!string.IsNullOrEmpty(dt.Rows[0]["mEndTime"].ToString()))
             {
-                tbmEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mEndTime"]).ToString("yyyy-MM-dd hh:mm:ss");
+                tbmEndTime.Value = Convert.ToDateTime(dt.Rows[0]["mEndTime"]).ToString();
             }
 
             tbmAddress.Text = dt.Rows[0]["mAddress"].ToString();
             tbmContact.Text = dt.Rows[0]["mContact"].ToString();
             Upload1.FileName = dt.Rows[0]["mAgendaFile"].ToString();
-
-
+            RBLIsRegistration.SelectedValue = dt.Rows[0]["IsRegistration"].ToString()=="True"?"1":"0";
+            mSeatFile.FileName = dt.Rows[0]["mSeatFile"].ToString();
+            txtHintInfo.Text = dt.Rows[0]["HintInfo"].ToString();
         }
     }
     protected void btnSave_Click(object sender, EventArgs e)
@@ -74,7 +75,10 @@ public partial class admin_MInfo : System.Web.UI.Page
                 Upload1.FileName,
                 tbmHost.Text,
                 tbmUnderTake.Text,
-                tbmJointly.Text,},
+                tbmJointly.Text,
+                RBLIsRegistration.SelectedValue,
+                mSeatFile.FileName,
+                txtHintInfo.Text},
             out sqlexec, out sqlresult);
         if (sqlexec)
         {

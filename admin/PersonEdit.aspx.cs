@@ -59,6 +59,7 @@ public partial class admin_PersonEdit : System.Web.UI.Page
             lblSignTime.Text = dt.Rows[0]["SignTime"].ToString();
             lblRegTime.Text = dt.Rows[0]["RegTime"].ToString();
             btnDel.Visible = true;
+            tpRemark.Value = dt.Rows[0]["Remark"].ToString();
         }
     }
 
@@ -82,7 +83,8 @@ public partial class admin_PersonEdit : System.Web.UI.Page
                             tpMobile.Text.Trim(),
                             string.IsNullOrEmpty(ddlpState.SelectedValue)?"0":ddlpState.SelectedValue,
                             "",
-                            ""
+                            "",
+                            tpRemark.Value
                         },
                         out sqlexec, out sqlresult);
 

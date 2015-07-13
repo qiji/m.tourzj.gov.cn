@@ -14,7 +14,7 @@ public partial class admin_minfo : System.Web.UI.UserControl
             bool sqlexec;
             string sqlresult;
             DataTable dt = MySQL.ExecProc("usp_M_Info_GetByMid", new string[] { Request["mid"] }, out sqlexec, out sqlresult).Tables[0];
-            lbmName.Text = dt.Rows[0]["mName"].ToString();
+            lbmName.Text = dt.Rows[0]["mName"].ToString().Replace("<br/>","");
             lbBeginTime.Text = Convert.ToDateTime(dt.Rows[0]["mBeginTime"]).ToString("yyyy-MM-dd hh:mm:ss");
             lbEndTime.Text = Convert.ToDateTime(dt.Rows[0]["mEndTime"]).ToString("yyyy-MM-dd hh:mm:ss");
         }

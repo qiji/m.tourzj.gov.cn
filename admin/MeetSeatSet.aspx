@@ -29,16 +29,6 @@
         {
             background: #fff;
         }
-        #divseat div.selected {
-
-            background-color: red;
-        }
-
-        div.draw {
-            border: solid 1px blue;
-
-
-        }
     </style>
 </head>
 <body>
@@ -49,9 +39,7 @@
             <li><a href="#tabs-2">初始化</a></li>
         </ul>
         <div id="tabs-1">
-        </div>
-        <div id="tabs-2">
-            <div class="ciline">
+        <div class="ciline">
                 <div class="cilr">
                     会场位置
                 </div>
@@ -114,6 +102,9 @@
             </div>
         </div>
         </div>
+        <div id="tabs-2">
+            
+      </div>
     </div>
     </form>
 </body>
@@ -355,23 +346,28 @@
     })
 
     $("#divseat").DrawSelect(
-            { 'mouse_up': function (result) {
-                //                $('#result').val("");
-                for (var i = 0; i < result.length; i++) {
-                    //                    $("#result").append($(result[i]).attr("id") + ";")
-                    var seatstr = $(result[i]).attr("id").replace("divseat", "");
-                    if ($.inArray(seatstr, selectseat) == -1) {
-                        if ($("#divseat" + seatstr).attr("name") != "") {
-                            if ($.inArray($("#divseat" + seatstr).attr("name"), selectbid) == -1) {
-                                selectbid.push($("#divseat" + seatstr).attr("name"));
-                                //$("div[name='" + $("#divseat" + seatstr).attr("name") + "']").attr("class", "mt_sli area");
-                            }
-                        }
-                        selectseat.push(seatstr);
-                    }
+                { 
+                    'selectable':'sblock',
+                    'on_select_complete': function (result) {
+                    //                $('#result').val("");
+                    //                for (var i = 0; i < result.length; i++) {
+                    //                    //                    $("#result").append($(result[i]).attr("id") + ";")
+                    //                    var seatstr = $(result[i]).attr("id").replace("divseat", "");
+                    //                    if ($.inArray(seatstr, selectseat) == -1) {
+                    //                        if ($("#divseat" + seatstr).attr("name") != "") {
+                    //                            if ($.inArray($("#divseat" + seatstr).attr("name"), selectbid) == -1) {
+                    //                                selectbid.push($("#divseat" + seatstr).attr("name"));
+                    //                                //$("div[name='" + $("#divseat" + seatstr).attr("name") + "']").attr("class", "mt_sli area");
+                    //                            }
+                    //                        }
+                    //                        selectseat.push(seatstr);
+                    //                    }
+                    //                }
+                    //                    $('#result').text("");
+                    //                    for (var i = 0; i < result.length; i++) {
+                    //                        $("#result").append($(result[i]).attr("id").replace("divseat", "") + ";")
+                    //                    }
                 }
-
-            }
-            }
+                }
     );
 </script>

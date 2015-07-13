@@ -29,7 +29,7 @@ public partial class admin_MeetSeatSet : System.Web.UI.Page
                 for (int x = 0; x < seatx; x++)
                 {
                     string seatstr = x.ToString() + "_" + y.ToString();
-                    seatinfo += "<div id='divseat" + seatstr + "' class='mt_sli sblock' onclick=\"seatSet('" + seatstr + "')\"></div>\r\n";
+                    seatinfo += "<div id='divseat" + seatstr + "' class='mt_sli sblock'></div>\r\n";
                 }
                 seatinfo += "<div class='clear'></div>";
             }
